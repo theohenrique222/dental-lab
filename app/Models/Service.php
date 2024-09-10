@@ -23,10 +23,6 @@ class Service extends Model
             'description' => 'Coroa feita de porcelana de alta qualidade.'
         ]);
 
-        Service::create([
-            'name' => 'Ponte Fixa',
-            'price' => 800.00,
-            'description' => 'Ponte fixa com ótima durabilidade.'
-        ]);
+        
     }
 }

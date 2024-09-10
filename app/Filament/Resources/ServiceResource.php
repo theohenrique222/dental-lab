@@ -3,20 +3,14 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ServiceResource\Pages;
-use App\Filament\Resources\ServiceResource\RelationManagers;
 use App\Models\Service;
-use Faker\Provider\ar_EG\Text;
-use Filament\Forms;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-
 class ServiceResource extends Resource
 {
     protected static ?string $model = Service::class;
@@ -26,35 +20,56 @@ class ServiceResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->columns(3)
+            ->columns(1)
             ->schema([
                 TextInput::make('name')
-                    ->required(),
-                TextInput::make('description')
-                    ->required(),
+                    ->required()
+                    ->label('Nome do serviço'),
                 TextInput::make('price')
+                    ->label('Valor')
                     ->required()
                     ->numeric()
                     ->inputMode('decimal')
                     ->minValue('1.00'),
+                RichEditor::make('description')
+                    ->label('Descrição')
+                    ->required(),
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
-            
+
             ->columns([
-                TextColumn::make('id'),
-                TextColumn::make('name'),
-                TextColumn::make('description'),
+                TextColumn::make('id')
+                    ->label('Nº')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('name')
+                    ->label('Serviço')
+                    ->formatStateUsing(fn($state) => ucfirst(strtolower($state)))
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('description')
+                    ->label('Descrição')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('price')
-                    ->numeric(decimalPlaces: 2)
-                    ->money('BRL'),
+                    ->label('Preço')
+                    ->money('BRL')
+                    ->sortable()
+                    ->searchable()
+                    ->formatStateUsing(fn($state) => 'R$ ' . number_format($state, 2, ',', '.')),
+
                 TextColumn::make('created_at')
-                    ->dateTime('d/m/Y'),
+                    ->dateTime('d/m/Y')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('updated_at')
                     ->dateTime('d/m/Y')
+                    ->sortable()
+                    ->searchable()
             ])
             ->filters([
                 //
