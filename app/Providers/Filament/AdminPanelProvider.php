@@ -25,6 +25,7 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
+            ->brandName('Dental Lab')
             ->id('admin')
             ->path('admin')
             ->login()

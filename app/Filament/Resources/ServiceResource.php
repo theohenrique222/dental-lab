@@ -5,17 +5,21 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ServiceResource\Pages;
 use App\Models\Service;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+
 class ServiceResource extends Resource
 {
     protected static ?string $model = Service::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
@@ -31,7 +35,7 @@ class ServiceResource extends Resource
                     ->numeric()
                     ->inputMode('decimal')
                     ->minValue('1.00'),
-                RichEditor::make('description')
+                TextInput::make('description')
                     ->label('Descrição')
                     ->required(),
             ]);
@@ -62,14 +66,14 @@ class ServiceResource extends Resource
                     ->searchable()
                     ->formatStateUsing(fn($state) => 'R$ ' . number_format($state, 2, ',', '.')),
 
-                TextColumn::make('created_at')
+                Tables\Columns\TextColumn::make('created_at')
                     ->dateTime('d/m/Y')
                     ->sortable()
-                    ->searchable(),
-                TextColumn::make('updated_at')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime('d/m/Y')
                     ->sortable()
-                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
