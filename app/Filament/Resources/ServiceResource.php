@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ServiceResource\Pages;
 use App\Models\Service;
+use Filament\Actions\DeleteAction;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -51,10 +52,6 @@ class ServiceResource extends Resource
         return $table
 
             ->columns([
-                TextColumn::make('id')
-                    ->label('Nº')
-                    ->sortable()
-                    ->searchable(),
                 TextColumn::make('name')
                     ->label('Serviço')
                     ->formatStateUsing(fn($state) => ucfirst(strtolower($state)))
@@ -70,9 +67,7 @@ class ServiceResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->formatStateUsing(fn($state) => 'R$ ' . number_format($state, 2, ',', '.')),
-                TextColumn::make('category.category')
-                    ,
-
+                TextColumn::make('category.category'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime('d/m/Y')
                     ->sortable()
@@ -87,6 +82,7 @@ class ServiceResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
