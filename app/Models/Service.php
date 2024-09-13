@@ -4,11 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Service extends Model
 {
     use HasFactory;
-
+    
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
     protected $fillable = [
         'name',
         'description',
@@ -17,12 +22,6 @@ class Service extends Model
 
     public function create(): void
     {
-        Service::create([
-            'name' => 'Coroa de Porcelana',
-            'price' => 500.00,
-            'description' => 'Coroa feita de porcelana de alta qualidade.'
-        ]);
-
-        
+        //
     }
 }

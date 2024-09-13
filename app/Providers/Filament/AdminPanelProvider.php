@@ -25,7 +25,8 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
-            ->brandName('Dental Lab')
+            ->sidebarCollapsibleOnDesktop()
+            ->brandName('DentalLab')
             ->id('admin')
             ->path('admin')
             ->login()

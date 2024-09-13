@@ -18,13 +18,13 @@ class ServiceResource extends Resource
 {
     protected static ?string $model = Service::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-archive-box';
     protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
         return $form
-            ->columns(1)
+            ->columns(2)
             ->schema([
                 TextInput::make('name')
                     ->required()
@@ -37,6 +37,10 @@ class ServiceResource extends Resource
                     ->minValue('1.00'),
                 TextInput::make('description')
                     ->label('Descrição')
+                    ->required(),
+                Select::make('category_id')
+                    ->label('Categoria')
+                    ->relationship('category', 'category')
                     ->required(),
             ]);
     }
@@ -60,11 +64,13 @@ class ServiceResource extends Resource
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('price')
-                    ->label('Preço')
+                    ->label('Valor')
                     ->money('BRL')
                     ->sortable()
                     ->searchable()
                     ->formatStateUsing(fn($state) => 'R$ ' . number_format($state, 2, ',', '.')),
+                TextColumn::make('category.category')
+                    ,
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime('d/m/Y')
