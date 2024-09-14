@@ -1,0 +1,89 @@
+services:
+  - type: web
+    name: dental-lab
+    env: php
+    plan: free
+    buildCommand: "composer install --optimize-autoloader --no-dev && php artisan key:generate && php artisan migrate --force && php artisan config:cache && php artisan route:cache"
+    startCommand: "php artisan serve --host 0.0.0.0 --port $PORT"
+    autoDeploy: true
+    envVars:
+      - key: APP_NAME
+        value: Dental-Lab
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        value: base64:6D2IdO1QDLzakZu0fadpnxxD/mxKCxpSN1zSau/C1ow=
+      - key: APP_DEBUG
+        value: false
+      - key: APP_TIMEZONE
+        value: UTC
+      - key: APP_URL
+        value: http://dental-lab.test
+      - key: APP_LOCALE
+        value: pt_BR
+      - key: APP_FALLBACK_LOCALE
+        value: en
+      - key: APP_FAKER_LOCALE
+        value: pt_BR
+      - key: APP_MAINTENANCE_DRIVER
+        value: file
+      - key: BCRYPT_ROUNDS
+        value: 12
+      - key: LOG_CHANNEL
+        value: stack
+      - key: LOG_STACK
+        value: single
+      - key: LOG_DEPRECATIONS_CHANNEL
+        value: null
+      - key: LOG_LEVEL
+        value: debug
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        value: dpg-cri65ijqf0us739pkdt0-a.oregon-postgres.render.com
+      - key: DB_PORT
+        value: 5432
+      - key: DB_DATABASE
+        value: dental_lab_o2o0
+      - key: DB_USERNAME
+        value: dental_lab_o2o0_user
+      - key: DB_PASSWORD
+        value: oZIyzxwVNtlQv3NvT5cEFrnLjGL7155I
+      - key: SESSION_DRIVER
+        value: database
+      - key: SESSION_LIFETIME
+        value: 120
+      - key: SESSION_ENCRYPT
+        value: false
+      - key: SESSION_PATH
+        value: /
+      - key: SESSION_DOMAIN
+        value: null
+      - key: BROADCAST_CONNECTION
+        value: log
+      - key: FILESYSTEM_DISK
+        value: local
+      - key: QUEUE_CONNECTION
+        value: database
+      - key: CACHE_STORE
+        value: database
+      - key: CACHE_PREFIX
+        value: ""
+      - key: MAIL_MAILER
+        value: log
+      - key: MAIL_HOST
+        value: 127.0.0.1
+      - key: MAIL_PORT
+        value: 2525
+      - key: MAIL_USERNAME
+        value: null
+      - key: MAIL_PASSWORD
+        value: null
+      - key: MAIL_ENCRYPTION
+        value: null
+      - key: MAIL_FROM_ADDRESS
+        value: theodoro222@hotmail.com
+      - key: MAIL_FROM_NAME
+        value: "Dental_lab"
+      - key: VITE_APP_NAME
+        value: "dental-lab-app"
