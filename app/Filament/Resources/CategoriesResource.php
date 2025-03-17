@@ -39,10 +39,10 @@ class CategoriesResource extends Resource
                 TextColumn::make('category')
                     ->label('Categoria'),
                 TextColumn::make('created_at')
-                    ->label('Criado em')
+                    ->label('Data de Criação')
                     ->dateTime('d/m/Y'),
                 TextColumn::make('updated_at')
-                    ->label('Atualizado em')
+                    ->label('Data de Atualização')
                     ->dateTime('d/m/Y')
             ])
             ->filters([
