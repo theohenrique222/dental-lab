@@ -4,14 +4,11 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ServiceResource\Pages;
 use App\Models\Service;
-use Filament\Actions\DeleteAction;
-use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -19,9 +16,9 @@ class ServiceResource extends Resource
 {
     protected static ?string $model = Service::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-archive-box';
-    protected static ?string $modelLabel = 'Serviços';
-    protected static ?int $navigationSort = 2;
+    protected static ?string    $navigationIcon  = 'heroicon-o-archive-box';
+    protected static ?string     $modelLabel     = 'Serviços';
+    protected static ?int       $navigationSort  = 2;
 
     public static function form(Form $form): Form
     {
@@ -43,14 +40,12 @@ class ServiceResource extends Resource
                 Select::make('category_id')
                     ->label('Categoria')
                     ->relationship('category', 'category')
-                    ->required(),
+                    ->required()
             ]);
     }
-
     public static function table(Table $table): Table
     {
         return $table
-
             ->columns([
                 TextColumn::make('name')
                     ->label('Serviço')
@@ -67,7 +62,8 @@ class ServiceResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->formatStateUsing(fn($state) => 'R$ ' . number_format($state, 2, ',', '.')),
-                TextColumn::make('category.category'),
+                TextColumn::make('category.category')
+                    ->label('Categoria'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime('d/m/Y')
                     ->sortable()
@@ -82,7 +78,6 @@ class ServiceResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -101,9 +96,9 @@ class ServiceResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListServices::route('/'),
-            'create' => Pages\CreateService::route('/create'),
-            'edit' => Pages\EditService::route('/{record}/edit'),
+            'index'     => Pages\ListServices::route('/'),
+            'create'    => Pages\CreateService::route('/create'),
+            'edit'      => Pages\EditService::route('/{record}/edit'),
         ];
     }
 }
